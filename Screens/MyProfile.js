@@ -40,11 +40,11 @@ export default class App extends React.Component {
           </ImageBackground>
         </View>
         <ScrollView>
-
+          <View
             style={{
               marginTop: 30,
             }}>
-            <Text style={{fontSize: 18, paddingLeft: '6%'}}>Name  </Text>
+            <Text style={{ fontSize: 18, paddingLeft: '6%' }}>Name  </Text>
           </View>
           <View>
             <TextInput
@@ -69,7 +69,7 @@ export default class App extends React.Component {
             style={{
               marginTop: 30,
             }}>
-            <Text style={{fontSize: 18, paddingLeft: '6%'}}>Email  </Text>
+            <Text style={{ fontSize: 18, paddingLeft: '6%' }}>Email  </Text>
           </View>
           <View>
             <TextInput
@@ -94,7 +94,7 @@ export default class App extends React.Component {
             style={{
               marginTop: 30,
             }}>
-            <Text style={{fontSize: 18, paddingLeft: '6%'}}>Mobile  </Text>
+            <Text style={{ fontSize: 18, paddingLeft: '6%' }}>Mobile  </Text>
           </View>
           <View>
             <TextInput

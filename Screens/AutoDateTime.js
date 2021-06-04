@@ -1,14 +1,12 @@
 import React, {useState, useEffect} from 'react';
+import moment from 'moment';
 import {
-  StyleSheet,
   Text,
   View,
   ImageBackground,
-  Alert,
   SafeAreaView,
   TouchableOpacity,
 } from 'react-native';
-import moment from 'moment';
 const AutoDateTime = () => {
   const [currentDate, setCurrentDate] = useState('');
   const [currentDateWithMoment, setCurrentDateWithMoment] = useState('');
@@ -21,13 +19,13 @@ const AutoDateTime = () => {
     var min = new Date().getMinutes(); //Current Minutes
     var sec = new Date().getSeconds(); //Current Seconds
     //setCurrentDate(date + '-' + month + '-' + year);
-    setCurrentDate( year + '-' + month + '-' + date);
+    setCurrentDate(year + '-' + month + '-' + date);
     var dateMoment = moment().utcOffset('+05:30').format('hh:mm:ss a');
     setCurrentDateWithMoment(dateMoment);
   }, []);
   return (
     <SafeAreaView>
-      {/* 
+      {/*
         <Text style={styles.textStyle}>
           {currentDate}
         </Text> */}

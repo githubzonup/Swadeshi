@@ -1,4 +1,7 @@
-import React, {Component} from 'react';
+import React from 'react';
+import Geolocation from '@react-native-community/geolocation';
+import moment from 'moment';
+import {Picker, Item} from 'native-base';
 import {
   StyleSheet,
   Text,
@@ -9,12 +12,9 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from 'react-native';
-import {DateTimePickerModal} from 'react-native-modal-datetime-picker';
-import moment from 'moment';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Picker, Item} from 'native-base';
-import Geolocation from '@react-native-community/geolocation';
 import Geocoder from 'react-native-geocoding';
+import {DateTimePickerModal} from 'react-native-modal-datetime-picker';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default class AddVisitScreen extends React.Component {
   static navigationOptions = {
@@ -50,12 +50,9 @@ export default class AddVisitScreen extends React.Component {
       User_id: this.props.navigation.state.params.id,
       initialPosition: 'unknown',
       lastPosition: 'unknown',
-
     };
   }
 
-
- 
   selected1(value) {
     this.setState({
       selected1: value,
@@ -65,13 +62,12 @@ export default class AddVisitScreen extends React.Component {
   selected2(value) {
     this.setState({
       selected2: value,
-      Addtolead: value
+      Addtolead: value,
     });
   }
-//----------------------------------------------------------------------------------------//
- 
- 
-//--------------------------------------------------------------------------------------//
+  //----------------------------------------------------------------------------------------//
+
+  //--------------------------------------------------------------------------------------//
   handleConfirm = (DateDisplay, TimeDisplay) => {
     this.setState({DateDisplay: moment(DateDisplay).format('YYYY-MM-DD ')});
     this.setState({
@@ -84,9 +80,9 @@ export default class AddVisitScreen extends React.Component {
   onPressButton = () => {
     this.setState({visibility: true});
   };
-/////-------------------------------------------------------------------------------------------/////
+  /////-------------------------------------------------------------------------------------------/////
 
-////---------------------------------------------------------------------------------------------/////
+  ////---------------------------------------------------------------------------------------------/////
   InsertRecord = () => {
     var User_id = this.state.User_id;
     var Customername = this.state.Customername;
@@ -95,7 +91,7 @@ export default class AddVisitScreen extends React.Component {
     var Email = this.state.Email;
     var Time = this.state.CurrentTime;
     var Date = this.state.CurrentDate;
-    var Productsinterested = this.state.Productsinterested
+    var Productsinterested = this.state.Productsinterested;
     var Addtolead = this.state.Addtolead;
     var Appointdate = this.state.DateDisplay;
     var Appointtime = this.state.TimeDisplay;
@@ -104,20 +100,20 @@ export default class AddVisitScreen extends React.Component {
 
     if (
       User_id.length == 0 ||
-    //  Customername.length == 0 ||
+      //  Customername.length == 0 ||
       Address.length == 0 ||
-     // Contactnumber.length == 0 ||
-    //  Email.length == 0 ||
+      // Contactnumber.length == 0 ||
+      //  Email.length == 0 ||
       Date.length == 0 ||
       Time.length == 0 ||
       Productsinterested.length == 0 ||
-      Addtolead.length == 0 
+      Addtolead.length == 0
     ) {
       alert('Required Field is missing');
     } else {
       var InsertAPIURL = 'https://skillpundit.com/api/addvisit.php';
       var headers = {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application.json',
       };
       var Data = {
@@ -134,8 +130,6 @@ export default class AddVisitScreen extends React.Component {
         Appointtime: Appointtime,
         Latitude: Latitude,
         Longitude: Longitude,
-        
-      
       };
       fetch(InsertAPIURL, {
         method: 'POST',
@@ -144,41 +138,42 @@ export default class AddVisitScreen extends React.Component {
       })
         .then(response => response.json())
         .then(response => {
-          alert("Successfully Submitted");
+          alert('Successfully Submitted');
           this.props.navigation.navigate('Dashboard');
         })
-        
+
         .catch(error => {
           alert('Error: ' + error);
         });
-      
     }
   };
   watchID: ?number = null;
   async componentDidMount() {
-    
-   // alert("ADDVISIT: ", this.state.User_id)
-    console.log("ADDVISIT:", this.state.User_id)
+    // alert("ADDVISIT: ", this.state.User_id)
+    console.log('ADDVISIT:', this.state.User_id);
 
     var today = new Date(),
-    date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+      date =
+        today.getFullYear() +
+        '-' +
+        (today.getMonth() + 1) +
+        '-' +
+        today.getDate();
 
     var dateMoment = moment().utcOffset('+05:30').format('hh:mm:ss a');
     this.setState({
       CurrentTime: dateMoment,
       CurrentDate: date,
-    })
+    });
     //======================================================================================//
-    Geolocation.getCurrentPosition(
-      (position) => {
-         const initialPosition = JSON.stringify(position);
-         this.setState({ initialPosition });
-         console.log("Start details: ",initialPosition)
-      },
-    );
-    this.watchID = Geolocation.watchPosition((position) => {
+    Geolocation.getCurrentPosition(position => {
+      const initialPosition = JSON.stringify(position);
+      this.setState({initialPosition});
+      console.log('Start details: ', initialPosition);
+    });
+    this.watchID = Geolocation.watchPosition(position => {
       const lastPosition = JSON.stringify(position);
-      this.setState({ lastPosition });
+      this.setState({lastPosition});
     });
     //======================================================================================//
     Geolocation.getCurrentPosition(info => {
@@ -188,12 +183,11 @@ export default class AddVisitScreen extends React.Component {
         long: info.coords.longitude,
         Latitude: info.coords.latitude,
         Longitude: info.coords.longitude,
-      
       });
-    
+
       Geocoder.init('AIzaSyAzvUS8W6b2URIWCK2PSfd7_2ZlO0qlucI');
-    //   Geocoder.from(info.coords.latitude, info.coords.longitude)
-      Geocoder.from(this.state.lat,this.state.long)
+      //   Geocoder.from(info.coords.latitude, info.coords.longitude)
+      Geocoder.from(this.state.lat, this.state.long)
         // Geocoder.from(16.9452127,82.2406291)
         .then(json => {
           var address_component = json.results[0].formatted_address;
@@ -208,7 +202,6 @@ export default class AddVisitScreen extends React.Component {
         })
         .catch(error => console.warn(error));
     });
-
   }
 
   render() {
@@ -224,25 +217,25 @@ export default class AddVisitScreen extends React.Component {
               alignItems: 'center',
               justifyContent: 'center',
             }}>
-                  <TouchableOpacity
-          style={{
-            height: 50,
-            width: 50,
-          //  borderRadius: 7,
-            marginLeft: '87%',
-            marginTop: -10,
-            alignItems: 'center',
-            justifyContent: 'center',
-           // backgroundColor: '#fff',
+            <TouchableOpacity
+              style={{
+                height: 50,
+                width: 50,
+                //  borderRadius: 7,
+                marginLeft: '87%',
+                marginTop: -10,
+                alignItems: 'center',
+                justifyContent: 'center',
+                // backgroundColor: '#fff',
 
-          //  borderColor: 'black',
-           // borderWidth: 1,
-          }}
-          onPress={() => {
-            this.props.navigation.navigate('Login');
-          }}>
-           <MaterialCommunityIcons name="logout" color='#fff' size={38} />
-        </TouchableOpacity>
+                //  borderColor: 'black',
+                // borderWidth: 1,
+              }}
+              onPress={() => {
+                this.props.navigation.navigate('Login');
+              }}>
+              <MaterialCommunityIcons name="logout" color="#fff" size={38} />
+            </TouchableOpacity>
             <Text
               style={{
                 fontWeight: 'bold',
@@ -250,7 +243,7 @@ export default class AddVisitScreen extends React.Component {
                 fontSize: 40,
                 // marginTop: "-30%",
                 //   marginLeft: "28%",
-                marginTop: 28
+                marginTop: 28,
               }}>
               ADD VISIT
             </Text>
@@ -271,36 +264,35 @@ export default class AddVisitScreen extends React.Component {
                 marginLeft: '11%',
                 paddingLeft: 20,
                 justifyContent: 'center',
-                color: 'black'
+                color: 'black',
               }}
               placeholder="CUSTOMER NAME"
               placeholderTextColor="black"
               onChangeText={Customername => this.setState({Customername})}
             />
-           <TouchableOpacity
-           style={{
-            height: 60,
-            width: '80%',
-            borderWidth: 2,
-            borderRadius: 50,
-            borderColor: '#00008B',
-            marginTop: '4%',
-            //  alignContent: "center",
-            // alignItems: "center",
-            marginLeft: '11%',
-            paddingLeft: 20,
-            justifyContent: 'center',
-            // paddingTop: 20
-          }}>
-          <Text
-            style={{color: 'black'}}
-            //onChangeText={Location => this.setState({Location})}
-            >
-            {/* Location: {this.state.lat}, {this.state.long} */}
-            Location: {this.state.Address}
-          </Text>
-        
-        </TouchableOpacity>  
+            <TouchableOpacity
+              style={{
+                height: 60,
+                width: '80%',
+                borderWidth: 2,
+                borderRadius: 50,
+                borderColor: '#00008B',
+                marginTop: '4%',
+                //  alignContent: "center",
+                // alignItems: "center",
+                marginLeft: '11%',
+                paddingLeft: 20,
+                justifyContent: 'center',
+                // paddingTop: 20
+              }}>
+              <Text
+                style={{color: 'black'}}
+                //onChangeText={Location => this.setState({Location})}
+              >
+                {/* Location: {this.state.lat}, {this.state.long} */}
+                Location: {this.state.Address}
+              </Text>
+            </TouchableOpacity>
             {/* <TextInput
               style={{
                 height: 50,
@@ -332,7 +324,7 @@ export default class AddVisitScreen extends React.Component {
                 marginLeft: '11%',
                 paddingLeft: 20,
                 justifyContent: 'center',
-                color: 'black'
+                color: 'black',
               }}
               placeholder="CONTACT NUMBER"
               placeholderTextColor="black"
@@ -352,7 +344,7 @@ export default class AddVisitScreen extends React.Component {
                 marginLeft: '11%',
                 paddingLeft: 20,
                 justifyContent: 'center',
-                color: 'black'
+                color: 'black',
               }}
               placeholder="E-MAIL ID"
               placeholderTextColor="black"
@@ -360,7 +352,6 @@ export default class AddVisitScreen extends React.Component {
               onChangeText={Email => this.setState({Email})}
             />
             <TouchableOpacity
-
               style={{
                 height: 50,
                 width: '80%',
@@ -376,7 +367,7 @@ export default class AddVisitScreen extends React.Component {
                 // paddingTop: 20
               }}>
               <Text>
-                DATE & TIME:  { this.state.CurrentDate }   {this.state.CurrentTime}
+                DATE & TIME: {this.state.CurrentDate} {this.state.CurrentTime}
               </Text>
 
               {/* <Text>{this.state.DateDisplay}</Text> */}
@@ -397,20 +388,19 @@ export default class AddVisitScreen extends React.Component {
                 fontSize: 5,
               }}>
               <Picker
-              selectedValue={this.state.selected1}
-              onValueChange={this.selected1.bind(this)}
+                selectedValue={this.state.selected1}
+                onValueChange={this.selected1.bind(this)}
                 style={{
                   height: 20,
                   width: '80%',
                   marginLeft: '-11%',
                   fontSize: 5,
                 }}>
-                <Item label="PRODUCTS INTERSTED:" value="0"  />
+                <Item label="PRODUCTS INTERSTED:" value="0" />
                 <Item label="React Native" value="React-Native" />
                 <Item label="Flutter" value="Flutter" />
                 <Item label="Android" value="Android" />
                 <Item label="IOS" value="IOS" />
-               
               </Picker>
             </View>
 
@@ -430,19 +420,17 @@ export default class AddVisitScreen extends React.Component {
                 fontSize: 5,
               }}>
               <Picker
-              selectedValue={this.state.selected2}
-              onValueChange={this.selected2.bind(this)}
+                selectedValue={this.state.selected2}
+                onValueChange={this.selected2.bind(this)}
                 style={{
                   height: 20,
                   width: '80%',
                   marginLeft: '-11%',
                   fontSize: 5,
                 }}>
-                <Item label="ADD TO LEAD:" value="0"  />
+                <Item label="ADD TO LEAD:" value="0" />
                 <Item label="Yes" value="1" />
                 <Item label="No" value="2" />
-
-               
               </Picker>
             </View>
             <TouchableOpacity
@@ -462,7 +450,8 @@ export default class AddVisitScreen extends React.Component {
                 // paddingTop: 20
               }}>
               <Text>
-                ADD APPOINTMENT: {this.state.DateDisplay} {this.state.TimeDisplay}
+                ADD APPOINTMENT: {this.state.DateDisplay}{' '}
+                {this.state.TimeDisplay}
               </Text>
 
               {/* <Text>{this.state.DateDisplay}</Text> */}
@@ -475,7 +464,7 @@ export default class AddVisitScreen extends React.Component {
               is24Hour={false}
             />
           </SafeAreaView>
-          <View                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+          <View
             style={{
               alignContent: 'center',
               alignItems: 'center',
@@ -496,7 +485,7 @@ export default class AddVisitScreen extends React.Component {
                 //  paddingLeft: 20,
                 justifyContent: 'center',
                 backgroundColor: '#FF1493',
-                marginBottom: '10%'
+                marginBottom: '10%',
               }}
               // onPress={() => {
               //   this.props.navigation.navigate('Dashboard');

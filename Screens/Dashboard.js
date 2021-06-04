@@ -5,13 +5,10 @@ import {
   View,
   Image,
   TouchableOpacity,
-  Touchable,
   ScrollView,
   ImageBackground,
-  Alert
 } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Geolocation from '@react-native-community/geolocation';
 
 export default class App extends React.Component {
   static navigationOptions = {
@@ -25,24 +22,18 @@ export default class App extends React.Component {
       lat: '',
       long: '',
       Latitude: '',
-      Longitude: ''
+      Longitude: '',
     };
   }
-//   componentDidMount(){
-//    // alert(this.props.navigation.state.params.ID1)
-   
+  //   componentDidMount(){
+  //    // alert(this.props.navigation.state.params.ID1)
 
-// }
-  
-  
-
+  // }
 
   componentDidMount() {
-   // alert(this.state.Id)
-    console.log("Dashboard:", this.state.Id)
+    // alert(this.state.Id)
+    console.log('Dashboard:', this.state.Id);
   }
-
-
 
   render() {
     return (
@@ -50,27 +41,26 @@ export default class App extends React.Component {
         <View>
           <ImageBackground
             source={require('../icons/headerbg.png')}
-            style={{height: 202, width: '100%'}}
-          >
-                      <TouchableOpacity
-          style={{
-            height: 50,
-            width: 50,
-          //  borderRadius: 7,
-            marginLeft: '87%',
-            marginTop: 5,
-            alignItems: 'center',
-            justifyContent: 'center',
-           // backgroundColor: '#fff',
+            style={{height: 202, width: '100%'}}>
+            <TouchableOpacity
+              style={{
+                height: 50,
+                width: 50,
+                //  borderRadius: 7,
+                marginLeft: '87%',
+                marginTop: 5,
+                alignItems: 'center',
+                justifyContent: 'center',
+                // backgroundColor: '#fff',
 
-          //  borderColor: 'black',
-           // borderWidth: 1,
-          }}
-          onPress={() => {
-            this.props.navigation.navigate('Login');
-          }}>
-           <MaterialCommunityIcons name="logout" color='#fff' size={38} />
-        </TouchableOpacity>
+                //  borderColor: 'black',
+                // borderWidth: 1,
+              }}
+              onPress={() => {
+                this.props.navigation.navigate('Login');
+              }}>
+              <MaterialCommunityIcons name="logout" color="#fff" size={38} />
+            </TouchableOpacity>
           </ImageBackground>
         </View>
         <TouchableOpacity
@@ -88,7 +78,7 @@ export default class App extends React.Component {
             borderWidth: 1,
           }}
           onPress={() => {
-            this.props.navigation.navigate('StartDay',{id: this.state.Id});
+            this.props.navigation.navigate('StartDay', {id: this.state.Id});
           }}>
           <Image
             source={require('../icons/3.png')}
@@ -97,9 +87,8 @@ export default class App extends React.Component {
           <Text
             style={{fontWeight: 'bold'}}
             onPress={() => {
-              this.props.navigation.navigate('StartDay',{id: this.state.Id});
-            }}
-          >
+              this.props.navigation.navigate('StartDay', {id: this.state.Id});
+            }}>
             START DAY
           </Text>
         </TouchableOpacity>
@@ -118,9 +107,8 @@ export default class App extends React.Component {
             borderWidth: 1,
           }}
           onPress={() => {
-            this.props.navigation.navigate('RouteMap',{id: this.state.Id});
-          }}
-          >
+            this.props.navigation.navigate('RouteMap', {id: this.state.Id});
+          }}>
           <Image
             source={require('../icons/2.png')}
             style={{height: '80%', width: '90%'}}
@@ -128,9 +116,8 @@ export default class App extends React.Component {
           <Text
             style={{fontWeight: 'bold'}}
             onPress={() => {
-              this.props.navigation.navigate('RouteMap',{id: this.state.Id});
-            }}
-            >
+              this.props.navigation.navigate('RouteMap', {id: this.state.Id});
+            }}>
             ROUTE MAP
           </Text>
         </TouchableOpacity>
@@ -149,7 +136,7 @@ export default class App extends React.Component {
             borderWidth: 1,
           }}
           onPress={() => {
-            this.props.navigation.navigate('MyVisits',{id: this.state.Id});
+            this.props.navigation.navigate('MyVisits', {id: this.state.Id});
           }}>
           <Image
             source={require('../icons/4.png')}
@@ -158,7 +145,7 @@ export default class App extends React.Component {
           <Text
             style={{fontWeight: 'bold'}}
             onPress={() => {
-              this.props.navigation.navigate('MyVisits',{id: this.state.Id});
+              this.props.navigation.navigate('MyVisits', {id: this.state.Id});
             }}>
             MY VISITS
           </Text>
@@ -178,9 +165,8 @@ export default class App extends React.Component {
             borderWidth: 1,
           }}
           onPress={() => {
-            this.props.navigation.navigate('AddVisit',{id: this.state.Id});
-          }}
-          >
+            this.props.navigation.navigate('AddVisit', {id: this.state.Id});
+          }}>
           <Image
             source={require('../icons/6.png')}
             style={{height: '80%', width: '90%'}}
@@ -188,9 +174,8 @@ export default class App extends React.Component {
           <Text
             style={{fontWeight: 'bold'}}
             onPress={() => {
-              this.props.navigation.navigate('AddVisit',{id: this.state.Id});
-            }}
-            >
+              this.props.navigation.navigate('AddVisit', {id: this.state.Id});
+            }}>
             ADD VISIT
           </Text>
         </TouchableOpacity>
@@ -209,7 +194,7 @@ export default class App extends React.Component {
             borderWidth: 1,
           }}
           onPress={() => {
-            this.props.navigation.navigate('MyLeads',{id: this.state.Id});
+            this.props.navigation.navigate('MyLeads', {id: this.state.Id});
           }}>
           <Image
             source={require('../icons/5.png')}
@@ -218,7 +203,7 @@ export default class App extends React.Component {
           <Text
             style={{fontWeight: 'bold'}}
             onPress={() => {
-              this.props.navigation.navigate('MyLeads',{id: this.state.Id});
+              this.props.navigation.navigate('MyLeads', {id: this.state.Id});
             }}>
             LEADS
           </Text>
@@ -240,7 +225,7 @@ export default class App extends React.Component {
           // onPress={() => {
           //   this.props.navigation.navigate('Getdata');
           // }}
-          >
+        >
           <Image
             source={require('../icons/7.png')}
             style={{height: '80%', width: '90%'}}
@@ -250,7 +235,7 @@ export default class App extends React.Component {
             // onPress={() => {
             //   this.props.navigation.navigate('Getdata');
             // }}
-            >
+          >
             TO DO LIST
           </Text>
         </TouchableOpacity>
@@ -269,7 +254,9 @@ export default class App extends React.Component {
             borderWidth: 1,
           }}
           onPress={() => {
-            this.props.navigation.navigate('MyAppointments',{id: this.state.Id});
+            this.props.navigation.navigate('MyAppointments', {
+              id: this.state.Id,
+            });
           }}>
           <Image
             source={require('../icons/1.png')}
@@ -278,7 +265,9 @@ export default class App extends React.Component {
           <Text
             style={{fontWeight: 'bold'}}
             onPress={() => {
-              this.props.navigation.navigate('MyAppointments',{id: this.state.Id});
+              this.props.navigation.navigate('MyAppointments', {
+                id: this.state.Id,
+              });
             }}>
             APPOINTMENTS
           </Text>
@@ -300,7 +289,7 @@ export default class App extends React.Component {
           // onPress={() => {
           //   this.props.navigation.navigate('MyProfile');
           // }}
-          >
+        >
           <Image
             source={require('../icons/8.png')}
             style={{height: '80%', width: '90%'}}
@@ -310,7 +299,7 @@ export default class App extends React.Component {
             // onPress={() => {
             //   this.props.navigation.navigate('MyProfile');
             // }}
-            >
+          >
             MY PROFILE
           </Text>
         </TouchableOpacity>

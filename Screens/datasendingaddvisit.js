@@ -1,4 +1,6 @@
-import React, {Component} from 'react';
+import React from 'react';
+import moment from 'moment';
+import {Picker, Item} from 'native-base';
 import {
   StyleSheet,
   Text,
@@ -10,9 +12,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import moment from 'moment';
 //import {Picker} from '@react-native-picker/picker';
-import {Picker, Item} from 'native-base';
 export default class AddVisitScreen extends React.Component {
   static navigationOptions = {
     title: 'AddVisit',
@@ -34,8 +34,7 @@ export default class AddVisitScreen extends React.Component {
       selected1: 'PRODUCTS INTERSTED:',
       Productsinterested: '',
       selected2: 'ADD TO LEAD:',
-      Addtolead: ''
-
+      Addtolead: '',
     };
   }
 
@@ -48,11 +47,9 @@ export default class AddVisitScreen extends React.Component {
   selected2(value) {
     this.setState({
       selected2: value,
-      Addtolead: value
+      Addtolead: value,
     });
   }
-
- 
 
   handleConfirm = (DateDisplay, TimeDisplay) => {
     this.setState({DateDisplay: moment(DateDisplay).format('YYYY-MM-DD ')});
@@ -67,8 +64,6 @@ export default class AddVisitScreen extends React.Component {
     this.setState({visibility: true});
   };
 
-
-
   InsertRecord = () => {
     var Customername = this.state.Customername;
     var Address = this.state.Address;
@@ -76,7 +71,7 @@ export default class AddVisitScreen extends React.Component {
     var Email = this.state.Email;
     var Date = this.state.DateDisplay;
     var Time = this.state.TimeDisplay;
-    var Productsinterested = this.state.Productsinterested
+    var Productsinterested = this.state.Productsinterested;
     var Addtolead = this.state.Addtolead;
 
     if (
@@ -93,7 +88,7 @@ export default class AddVisitScreen extends React.Component {
     } else {
       var InsertAPIURL = 'https://skillpundit.com/api/addvisit.php';
       var headers = {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application.json',
       };
       var Data = {
@@ -104,8 +99,7 @@ export default class AddVisitScreen extends React.Component {
         Date: Date,
         Time: Time,
         Productsinterested: Productsinterested,
-        Addtolead: Addtolead
-      
+        Addtolead: Addtolead,
       };
       fetch(InsertAPIURL, {
         method: 'POST',
@@ -269,20 +263,19 @@ export default class AddVisitScreen extends React.Component {
                 fontSize: 5,
               }}>
               <Picker
-              selectedValue={this.state.selected1}
-              onValueChange={this.selected1.bind(this)}
+                selectedValue={this.state.selected1}
+                onValueChange={this.selected1.bind(this)}
                 style={{
                   height: 20,
                   width: '80%',
                   marginLeft: '-11%',
                   fontSize: 5,
                 }}>
-                <Item label="PRODUCTS INTERSTED:" value="0"  />
+                <Item label="PRODUCTS INTERSTED:" value="0" />
                 <Item label="React Native" value="React-Native" />
                 <Item label="Flutter" value="Flutter" />
                 <Item label="Android" value="Android" />
                 <Item label="IOS" value="IOS" />
-               
               </Picker>
             </View>
 
@@ -302,19 +295,17 @@ export default class AddVisitScreen extends React.Component {
                 fontSize: 5,
               }}>
               <Picker
-              selectedValue={this.state.selected2}
-              onValueChange={this.selected2.bind(this)}
+                selectedValue={this.state.selected2}
+                onValueChange={this.selected2.bind(this)}
                 style={{
                   height: 20,
                   width: '80%',
                   marginLeft: '-11%',
                   fontSize: 5,
                 }}>
-                <Item label="ADD TO LEAD:" value="0"  />
+                <Item label="ADD TO LEAD:" value="0" />
                 <Item label="Yes" value="1" />
                 <Item label="No" value="2" />
-
-               
               </Picker>
             </View>
 
@@ -333,7 +324,7 @@ export default class AddVisitScreen extends React.Component {
                 justifyContent: 'center',
                 fontSize: 5,
               }}>
-           
+
             </View> */}
 
             {/* <TextInput

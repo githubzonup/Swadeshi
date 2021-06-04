@@ -1,17 +1,15 @@
 import React from 'react';
+import {Card} from 'native-base';
 import {
   StyleSheet,
   Text,
   View,
   ScrollView,
   TextInput,
-  Button,
   TouchableOpacity,
   Dimensions,
   Image,
-  Keyboard,
 } from 'react-native';
-import {Card, CardItem, Item, Input, Label} from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class LoginScreen extends React.Component {
@@ -24,7 +22,7 @@ export default class LoginScreen extends React.Component {
     this.state = {
       UserEmail: '',
       UserPassword: '',
-      Id: ''
+      Id: '',
     };
   }
 
@@ -35,7 +33,7 @@ export default class LoginScreen extends React.Component {
     fetch('https://skillpundit.com/api/login.php', {
       method: 'POST',
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -49,12 +47,12 @@ export default class LoginScreen extends React.Component {
         if (responseJson === 'Wrong Details') {
           alert(responseJson);
         } else {
-          console.log(responseJson)
+          console.log(responseJson);
           this.setState({
-            Id: responseJson
+            Id: responseJson,
           });
-          console.log('ID: ',this.state.Id)
-       this.props.navigation.navigate('Dashboard',{id: this.state.Id});
+          console.log('ID: ', this.state.Id);
+          this.props.navigation.navigate('Dashboard', {id: this.state.Id});
         }
       })
       .catch(error => {
@@ -162,7 +160,7 @@ export default class LoginScreen extends React.Component {
               <Button
                 title="Login"
                 color="#FF8C00"
-              
+
               />
             </TouchableOpacity> */}
 
@@ -176,10 +174,8 @@ export default class LoginScreen extends React.Component {
                 alignContent: 'center',
                 alignItems: 'center',
                 justifyContent: 'center',
-                borderColor: "black",
+                borderColor: 'black',
                 borderWidth: 0.8,
-                
-                
               }}
               onPress={this.login}>
               <Text style={{fontWeight: 'bold', color: 'black'}}>LOGIN</Text>
@@ -214,6 +210,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2, // Add this to specify bottom border thickness
     marginTop: -40,
     paddingLeft: 10,
-    color: 'black'
+    color: 'black',
   },
 });

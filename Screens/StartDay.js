@@ -1,24 +1,21 @@
 import React, {Component} from 'react';
+import Geolocation from '@react-native-community/geolocation';
+import moment from 'moment';
 import {
   StyleSheet,
   Text,
   View,
   ImageBackground,
-  Dimensions,
-  Image,
   ScrollView,
 } from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import Geolocation from '@react-native-community/geolocation';
 import Geocoder from 'react-native-geocoding';
-import moment from 'moment';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 class StartDayScreen extends Component {
   static navigationOptions = {
     title: 'Login',
     headerShown: false,
   };
-
 
   constructor(props) {
     super(props);
@@ -42,7 +39,7 @@ class StartDayScreen extends Component {
     };
   }
 
-  location=() =>{
+  location = () => {
     Geolocation.getCurrentPosition(info => {
       console.log('Check Geolocation: ==> ', info);
       this.setState({
@@ -50,12 +47,11 @@ class StartDayScreen extends Component {
         long: info.coords.longitude,
         Latitude: info.coords.latitude,
         Longitude: info.coords.longitude,
-      
       });
 
       Geocoder.init('AIzaSyAzvUS8W6b2URIWCK2PSfd7_2ZlO0qlucI');
-   //   Geocoder.from(info.coords.latitude, info.coords.longitude)
-      Geocoder.from(this.state.lat,this.state.long)
+      //   Geocoder.from(info.coords.latitude, info.coords.longitude)
+      Geocoder.from(this.state.lat, this.state.long)
         // Geocoder.from(16.9452127,82.2406291)
         .then(json => {
           var address_component = json.results[0].formatted_address;
@@ -70,56 +66,52 @@ class StartDayScreen extends Component {
         })
         .catch(error => console.warn(error));
     });
-
-  }
+  };
   watchID: ?number = null;
   async componentDidMount() {
-   // this.location();
-//-----------------------------------------------------------------------------//
+    // this.location();
+    //-----------------------------------------------------------------------------//
 
-Geolocation.getCurrentPosition(info => {
-  console.log('Check Geolocation: ==> ', info);
-  this.setState({
-    lat: info.coords.latitude,
-    long: info.coords.longitude,
-    Latitude: info.coords.latitude,
-    Longitude: info.coords.longitude,
-  
-  });
-
-  Geocoder.init('AIzaSyAzvUS8W6b2URIWCK2PSfd7_2ZlO0qlucI');
-//   Geocoder.from(info.coords.latitude, info.coords.longitude)
-  Geocoder.from(this.state.lat,this.state.long)
-    // Geocoder.from(16.9452127,82.2406291)
-    .then(json => {
-      var address_component = json.results[0].formatted_address;
-      // alert(address_component);
+    Geolocation.getCurrentPosition(info => {
+      console.log('Check Geolocation: ==> ', info);
       this.setState({
-        Address: address_component,
+        lat: info.coords.latitude,
+        long: info.coords.longitude,
+        Latitude: info.coords.latitude,
+        Longitude: info.coords.longitude,
       });
-      //address= json.results[0].formatted_address.
-      //  alert((address = address_component));
-      // alert("Address:" +addressComponent.long_name)
-      console.log('Address: ==>', address_component.long_name);
-    })
-    .catch(error => console.warn(error));
-});
-//-----------------------------------------------------------------------------//
-   // alert("START ID: ", this.state.User_id)
-    console.log("StartDay:", this.state.User_id)
-//---------------------------------------------------------------//
-Geolocation.getCurrentPosition(
-  (position) => {
-     const initialPosition = JSON.stringify(position);
-     this.setState({ initialPosition });
-     console.log("Start details: ",initialPosition)
-  },
-);
-this.watchID = Geolocation.watchPosition((position) => {
-  const lastPosition = JSON.stringify(position);
-  this.setState({ lastPosition });
-});
-//---------------------------------------------------------------//
+
+      Geocoder.init('AIzaSyAzvUS8W6b2URIWCK2PSfd7_2ZlO0qlucI');
+      //   Geocoder.from(info.coords.latitude, info.coords.longitude)
+      Geocoder.from(this.state.lat, this.state.long)
+        // Geocoder.from(16.9452127,82.2406291)
+        .then(json => {
+          var address_component = json.results[0].formatted_address;
+          // alert(address_component);
+          this.setState({
+            Address: address_component,
+          });
+          //address= json.results[0].formatted_address.
+          //  alert((address = address_component));
+          // alert("Address:" +addressComponent.long_name)
+          console.log('Address: ==>', address_component.long_name);
+        })
+        .catch(error => console.warn(error));
+    });
+    //-----------------------------------------------------------------------------//
+    // alert("START ID: ", this.state.User_id)
+    console.log('StartDay:', this.state.User_id);
+    //---------------------------------------------------------------//
+    Geolocation.getCurrentPosition(position => {
+      const initialPosition = JSON.stringify(position);
+      this.setState({initialPosition});
+      console.log('Start details: ', initialPosition);
+    });
+    this.watchID = Geolocation.watchPosition(position => {
+      const lastPosition = JSON.stringify(position);
+      this.setState({lastPosition});
+    });
+    //---------------------------------------------------------------//
     // Geolocation.getCurrentPosition(info => {
     //   console.log('Check Geolocation: ==> ', info);
     //   this.setState({
@@ -161,7 +153,7 @@ this.watchID = Geolocation.watchPosition((position) => {
   }
   componentWillUnmount = () => {
     Geolocation.clearWatch(this.watchID);
-   }
+  };
   //----------------------------------------------------------------//
   StartDay = () => {
     var User_id = this.state.User_id;
@@ -185,7 +177,7 @@ this.watchID = Geolocation.watchPosition((position) => {
     } else {
       var InsertAPIURL = 'https://skillpundit.com/api/insert.php';
       var headers = {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application.json',
       };
       var Data = {
@@ -228,7 +220,7 @@ this.watchID = Geolocation.watchPosition((position) => {
       Longitude.length == 0 ||
       Time.length == 0 ||
       Date.length == 0 ||
-      Daytype == 0  ||
+      Daytype == 0 ||
       Address == 0
     ) {
       alert('Required Field is missing');
@@ -302,125 +294,125 @@ this.watchID = Geolocation.watchPosition((position) => {
             START DAY
           </Text>
         </ImageBackground>
-            <ScrollView>
-        <TouchableOpacity
-          style={{
-            height: 50,
-            width: '80%',
-            borderWidth: 2,
-            borderRadius: 50,
-            borderColor: '#00008B',
-            marginTop: '5%',
-            //  alignContent: "center",
-            // alignItems: "center",
-            marginLeft: '11%',
-            paddingLeft: 20,
-            justifyContent: 'center',
-            // paddingTop: 20
-          }}>
-          {/* <MaterialCommunityIcons name="logout" color='#fff' size={35} /> */}
-          <Text style={{color: 'black'}}>Date: {this.state.CurrentDate} </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            height: 50,
-            width: '80%',
-            borderWidth: 2,
-            borderRadius: 50,
-            borderColor: '#00008B',
-            marginTop: '8%',
-            //  alignContent: "center",
-            // alignItems: "center",
-            marginLeft: '11%',
-            paddingLeft: 20,
-            justifyContent: 'center',
-            // paddingTop: 20
-          }}>
-          <Text style={{color: 'black'}}>Time: {this.state.CurrentTime}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-        onPress={this.location}
-          style={{
-            height: 60,
-            width: '80%',
-            borderWidth: 2,
-            borderRadius: 50,
-            borderColor: '#00008B',
-            marginTop: '8%',
-            //  alignContent: "center",
-            // alignItems: "center",
-            marginLeft: '11%',
-            paddingLeft: 20,
-            justifyContent: 'center',
-            // paddingTop: 20
-          }}>
-          <Text style={{color: 'black'}}>
-            {/* Location: {this.state.lat}, {this.state.long} */}
-            Location: {this.state.Address}
-          </Text>
-        </TouchableOpacity>
-
-
-        <View>
+        <ScrollView>
           <TouchableOpacity
             style={{
               height: 50,
               width: '80%',
-              //   borderWidth: 2,
+              borderWidth: 2,
               borderRadius: 50,
-              // borderColor: "#00008B",
-              marginTop: 25,
-              alignContent: 'center',
-
-              marginLeft: '11%',
-              paddingLeft: 20,
-              alignItems: 'center',
-              justifyContent: 'center',
-              justifyContent: 'center',
-              backgroundColor: '#1E90FF',
-            }}
-            // onPress={() => {
-            //   this.props.navigation.navigate('Dashboard');
-            // }}
-            onPress={this.StartDay}>
-            <Text
-              style={{
-                fontWeight: 'bold',
-                color: '#fff',
-                fontSize: 30,
-              }}>
-              START DAY
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={this.EndDay}
-            style={{
-              height: 50,
-              width: '80%',
-              //   borderWidth: 2,
-              borderRadius: 50,
-              // borderColor: "#00008B",
-              marginTop: 25,
-              alignContent: 'center',
-              alignItems: 'center',
-              justifyContent: 'center',
+              borderColor: '#00008B',
+              marginTop: '5%',
+              //  alignContent: "center",
+              // alignItems: "center",
               marginLeft: '11%',
               paddingLeft: 20,
               justifyContent: 'center',
-              backgroundColor: '#FF1493',
+              // paddingTop: 20
             }}>
-            <Text
-              style={{
-                fontWeight: 'bold',
-                color: '#fff',
-                fontSize: 30,
-              }}>
-              END DAY
+            {/* <MaterialCommunityIcons name="logout" color='#fff' size={35} /> */}
+            <Text style={{color: 'black'}}>
+              Date: {this.state.CurrentDate}{' '}
             </Text>
           </TouchableOpacity>
-        </View>
-      </ScrollView>
+          <TouchableOpacity
+            style={{
+              height: 50,
+              width: '80%',
+              borderWidth: 2,
+              borderRadius: 50,
+              borderColor: '#00008B',
+              marginTop: '8%',
+              //  alignContent: "center",
+              // alignItems: "center",
+              marginLeft: '11%',
+              paddingLeft: 20,
+              justifyContent: 'center',
+              // paddingTop: 20
+            }}>
+            <Text style={{color: 'black'}}>Time: {this.state.CurrentTime}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={this.location}
+            style={{
+              height: 60,
+              width: '80%',
+              borderWidth: 2,
+              borderRadius: 50,
+              borderColor: '#00008B',
+              marginTop: '8%',
+              //  alignContent: "center",
+              // alignItems: "center",
+              marginLeft: '11%',
+              paddingLeft: 20,
+              justifyContent: 'center',
+              // paddingTop: 20
+            }}>
+            <Text style={{color: 'black'}}>
+              {/* Location: {this.state.lat}, {this.state.long} */}
+              Location: {this.state.Address}
+            </Text>
+          </TouchableOpacity>
 
+          <View>
+            <TouchableOpacity
+              style={{
+                height: 50,
+                width: '80%',
+                //   borderWidth: 2,
+                borderRadius: 50,
+                // borderColor: "#00008B",
+                marginTop: 25,
+                alignContent: 'center',
+
+                marginLeft: '11%',
+                paddingLeft: 20,
+                alignItems: 'center',
+                justifyContent: 'center',
+                justifyContent: 'center',
+                backgroundColor: '#1E90FF',
+              }}
+              // onPress={() => {
+              //   this.props.navigation.navigate('Dashboard');
+              // }}
+              onPress={this.StartDay}>
+              <Text
+                style={{
+                  fontWeight: 'bold',
+                  color: '#fff',
+                  fontSize: 30,
+                }}>
+                START DAY
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={this.EndDay}
+              style={{
+                height: 50,
+                width: '80%',
+                //   borderWidth: 2,
+                borderRadius: 50,
+                // borderColor: "#00008B",
+                marginTop: 25,
+                alignContent: 'center',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginLeft: '11%',
+                paddingLeft: 20,
+                justifyContent: 'center',
+                backgroundColor: '#FF1493',
+              }}>
+              <Text
+                style={{
+                  fontWeight: 'bold',
+                  color: '#fff',
+                  fontSize: 30,
+                }}>
+                END DAY
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
       </View>
     );
   }

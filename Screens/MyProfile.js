@@ -3,9 +3,7 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
   TouchableOpacity,
-  Touchable,
   ScrollView,
   ImageBackground,
   TextInput,
@@ -42,80 +40,81 @@ export default class App extends React.Component {
           </ImageBackground>
         </View>
         <ScrollView>
-             
-          <View style={{
-            marginTop: 30
-          }}> 
-            <Text style={{fontSize: 18, paddingLeft: "6%"}}>Name  </Text>
-            </View>
-            <View>
-          <TextInput
-              style={{
-                height: 45,
-                width: '70%',
-                borderWidth: 2,
-                borderRadius: 50,
-                borderColor: '#00008B',
-               marginTop: "-8.5%",
-                //alignContent: 'center',
-                //alignItems: 'center',
-                marginLeft: '21%',
-                paddingLeft: 20,
-              //  justifyContent: 'center',
-              }}
-              //placeholder="ADDRESS / LOCATION"
-              placeholderTextColor="black"
-            />
-          </View>
-          <View style={{
-            marginTop: 30
-          }}> 
-            <Text style={{fontSize: 18, paddingLeft: "6%"}}>Email  </Text>
-            </View>
-            <View>
-          <TextInput
-              style={{
-                height: 45,
-                width: '70%',
-                borderWidth: 2,
-                borderRadius: 50,
-                borderColor: '#00008B',
-               marginTop: "-8.5%",
-                //alignContent: 'center',
-                //alignItems: 'center',
-                marginLeft: '21%',
-                paddingLeft: 20,
-              //  justifyContent: 'center',
-              }}
-              //placeholder="ADDRESS / LOCATION"
-              placeholderTextColor="black"
-            />
-          </View>
-          <View style={{
-            marginTop: 30
-          }}> 
-            <Text style={{fontSize: 18, paddingLeft: "6%"}}>Mobile  </Text>
-            </View>
-            <View>
-          <TextInput
-              style={{
-                height: 45,
-                width: '70%',
-                borderWidth: 2,
-                borderRadius: 50,
-                borderColor: '#00008B',
-               marginTop: "-8.5%",
-                //alignContent: 'center',
-                //alignItems: 'center',
-                marginLeft: '21%',
-                paddingLeft: 20,
-              //  justifyContent: 'center',
-              }}
-              //placeholder="ADDRESS / LOCATION"
-              placeholderTextColor="black"
-            />
-          </View>
 
+            style={{
+              marginTop: 30,
+            }}>
+            <Text style={{fontSize: 18, paddingLeft: '6%'}}>Name  </Text>
+          </View>
+          <View>
+            <TextInput
+              style={{
+                height: 45,
+                width: '70%',
+                borderWidth: 2,
+                borderRadius: 50,
+                borderColor: '#00008B',
+                marginTop: '-8.5%',
+                //alignContent: 'center',
+                //alignItems: 'center',
+                marginLeft: '21%',
+                paddingLeft: 20,
+                //  justifyContent: 'center',
+              }}
+              //placeholder="ADDRESS / LOCATION"
+              placeholderTextColor="black"
+            />
+          </View>
+          <View
+            style={{
+              marginTop: 30,
+            }}>
+            <Text style={{fontSize: 18, paddingLeft: '6%'}}>Email  </Text>
+          </View>
+          <View>
+            <TextInput
+              style={{
+                height: 45,
+                width: '70%',
+                borderWidth: 2,
+                borderRadius: 50,
+                borderColor: '#00008B',
+                marginTop: '-8.5%',
+                //alignContent: 'center',
+                //alignItems: 'center',
+                marginLeft: '21%',
+                paddingLeft: 20,
+                //  justifyContent: 'center',
+              }}
+              //placeholder="ADDRESS / LOCATION"
+              placeholderTextColor="black"
+            />
+          </View>
+          <View
+            style={{
+              marginTop: 30,
+            }}>
+            <Text style={{fontSize: 18, paddingLeft: '6%'}}>Mobile  </Text>
+          </View>
+          <View>
+            <TextInput
+              style={{
+                height: 45,
+                width: '70%',
+                borderWidth: 2,
+                borderRadius: 50,
+                borderColor: '#00008B',
+                marginTop: '-8.5%',
+                //alignContent: 'center',
+                //alignItems: 'center',
+                marginLeft: '21%',
+                paddingLeft: 20,
+                //  justifyContent: 'center',
+              }}
+              //placeholder="ADDRESS / LOCATION"
+              placeholderTextColor="black"
+            />
+          </View>
         </ScrollView>
       </View>
     );

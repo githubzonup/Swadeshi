@@ -1,21 +1,19 @@
 //IMPORT ALL SCREENS HERE:
-import Login from './Screens/Login';
-import Dashboard from './Screens/Dashboard';
-import StartDay from "./Screens/StartDay";
-import MyVisits from "./Screens/MyVisits";
-import MyLeads from "./Screens/MyLeads";
-import MyAppointments from "./Screens/MyAppointments";
-import AddVisit from "./Screens/AddVisit";
-import Getdata from "./Screens/Getdata";
-import getcurrentadd from "./Screens/getcurrentadd";
-import MyProfile from "./Screens/MyProfile";
-import RouteMap from "./Screens/RouteMap";
-
-
-//IMPORT NAVIGATION:
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
+import AddVisit from './Screens/AddVisit';
+import Dashboard from './Screens/Dashboard';
+import getcurrentadd from './Screens/getcurrentadd';
+import Getdata from './Screens/Getdata';
+import Login from './Screens/Login';
+import MyAppointments from './Screens/MyAppointments';
+import MyLeads from './Screens/MyLeads';
+import MyProfile from './Screens/MyProfile';
+import MyVisits from './Screens/MyVisits';
+import RouteMap from './Screens/RouteMap';
+import StartDay from './Screens/StartDay';
 
+//IMPORT NAVIGATION:
 
 const MainNavigator = createStackNavigator(
   {
@@ -38,9 +36,9 @@ const MainNavigator = createStackNavigator(
         backgroundColor: '#fff',
       },
 
-     headerTitleStyle: {
-       color: "#fff"
-     }
+      headerTitleStyle: {
+        color: '#fff',
+      },
     },
   },
 );

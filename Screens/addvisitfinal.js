@@ -1,4 +1,6 @@
-import React, {Component} from 'react';
+import React from 'react';
+import moment from 'moment';
+import {Picker, Item} from 'native-base';
 import {
   StyleSheet,
   Text,
@@ -10,9 +12,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {DateTimePickerModal} from 'react-native-modal-datetime-picker';
-import moment from 'moment';
 //import {Picker} from '@react-native-picker/picker';
-import {Picker, Item} from 'native-base';
 
 export default class AddVisitScreen extends React.Component {
   static navigationOptions = {
@@ -41,9 +41,6 @@ export default class AddVisitScreen extends React.Component {
       Appointtime: '',
       DateDisplay1: '',
       TimeDisplay1: '',
-      
-
-      
     };
   }
 
@@ -56,13 +53,12 @@ export default class AddVisitScreen extends React.Component {
   selected2(value) {
     this.setState({
       selected2: value,
-      Addtolead: value
+      Addtolead: value,
     });
   }
-//----------------------------------------------------------------------------------------//
- 
- 
-//--------------------------------------------------------------------------------------//
+  //----------------------------------------------------------------------------------------//
+
+  //--------------------------------------------------------------------------------------//
   handleConfirm = (DateDisplay, TimeDisplay) => {
     this.setState({DateDisplay: moment(DateDisplay).format('YYYY-MM-DD ')});
     this.setState({
@@ -75,22 +71,24 @@ export default class AddVisitScreen extends React.Component {
   onPressButton = () => {
     this.setState({visibility: true});
   };
-/////-------------------------------------------------------------------------------------------/////
+  /////-------------------------------------------------------------------------------------------/////
 
-handleConfirm1 = (DateDisplay1, TimeDisplay1) => {
-  this.setState({DateDisplay1: moment(DateDisplay1).format('YYYY-MM-DD ')});
-  this.setState({
-    TimeDisplay1: moment(TimeDisplay1).utcOffset('+05:30').format('hh:mm:ss a'),
-  });
-};
-onPressCancel1 = () => {
-  this.setState({visibility1: false});
-};
-onPressButton1 = () => {
-  this.setState({visibility1: true});
-};
- 
-////---------------------------------------------------------------------------------------------/////
+  handleConfirm1 = (DateDisplay1, TimeDisplay1) => {
+    this.setState({DateDisplay1: moment(DateDisplay1).format('YYYY-MM-DD ')});
+    this.setState({
+      TimeDisplay1: moment(TimeDisplay1)
+        .utcOffset('+05:30')
+        .format('hh:mm:ss a'),
+    });
+  };
+  onPressCancel1 = () => {
+    this.setState({visibility1: false});
+  };
+  onPressButton1 = () => {
+    this.setState({visibility1: true});
+  };
+
+  ////---------------------------------------------------------------------------------------------/////
   InsertRecord = () => {
     var Customername = this.state.Customername;
     var Address = this.state.Address;
@@ -98,10 +96,10 @@ onPressButton1 = () => {
     var Email = this.state.Email;
     var Date = this.state.DateDisplay;
     var Time = this.state.TimeDisplay;
-    var Productsinterested = this.state.Productsinterested
+    var Productsinterested = this.state.Productsinterested;
     var Addtolead = this.state.Addtolead;
     var Appointdate = this.state.DateDisplay1;
-    var Appointtime = this.state.TimeDisplay1
+    var Appointtime = this.state.TimeDisplay1;
 
     if (
       Customername.length == 0 ||
@@ -111,13 +109,13 @@ onPressButton1 = () => {
       Date.length == 0 ||
       Time.length == 0 ||
       Productsinterested.length == 0 ||
-      Addtolead.length == 0 
+      Addtolead.length == 0
     ) {
       alert('Required Field is missing');
     } else {
       var InsertAPIURL = 'https://skillpundit.com/api/addvisit.php';
       var headers = {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application.json',
       };
       var Data = {
@@ -130,8 +128,7 @@ onPressButton1 = () => {
         Productsinterested: Productsinterested,
         Addtolead: Addtolead,
         Appointdate: Appointdate,
-        Appointtime: Appointtime
-      
+        Appointtime: Appointtime,
       };
       fetch(InsertAPIURL, {
         method: 'POST',
@@ -295,20 +292,19 @@ onPressButton1 = () => {
                 fontSize: 5,
               }}>
               <Picker
-              selectedValue={this.state.selected1}
-              onValueChange={this.selected1.bind(this)}
+                selectedValue={this.state.selected1}
+                onValueChange={this.selected1.bind(this)}
                 style={{
                   height: 20,
                   width: '80%',
                   marginLeft: '-11%',
                   fontSize: 5,
                 }}>
-                <Item label="PRODUCTS INTERSTED:" value="0"  />
+                <Item label="PRODUCTS INTERSTED:" value="0" />
                 <Item label="React Native" value="React-Native" />
                 <Item label="Flutter" value="Flutter" />
                 <Item label="Android" value="Android" />
                 <Item label="IOS" value="IOS" />
-               
               </Picker>
             </View>
 
@@ -328,19 +324,17 @@ onPressButton1 = () => {
                 fontSize: 5,
               }}>
               <Picker
-              selectedValue={this.state.selected2}
-              onValueChange={this.selected2.bind(this)}
+                selectedValue={this.state.selected2}
+                onValueChange={this.selected2.bind(this)}
                 style={{
                   height: 20,
                   width: '80%',
                   marginLeft: '-11%',
                   fontSize: 5,
                 }}>
-                <Item label="ADD TO LEAD:" value="0"  />
+                <Item label="ADD TO LEAD:" value="0" />
                 <Item label="Yes" value="1" />
                 <Item label="No" value="2" />
-
-               
               </Picker>
             </View>
             <TouchableOpacity
@@ -360,7 +354,8 @@ onPressButton1 = () => {
                 // paddingTop: 20
               }}>
               <Text>
-                ADD APPOINTMENT: {this.state.DateDisplay1} {this.state.TimeDisplay1}
+                ADD APPOINTMENT: {this.state.DateDisplay1}{' '}
+                {this.state.TimeDisplay1}
               </Text>
 
               {/* <Text>{this.state.DateDisplay}</Text> */}
@@ -373,7 +368,7 @@ onPressButton1 = () => {
               is24Hour={false}
             />
           </SafeAreaView>
-          <View                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+          <View
             style={{
               alignContent: 'center',
               alignItems: 'center',
@@ -394,7 +389,7 @@ onPressButton1 = () => {
                 //  paddingLeft: 20,
                 justifyContent: 'center',
                 backgroundColor: '#FF1493',
-                marginBottom: '10%'
+                marginBottom: '10%',
               }}
               // onPress={() => {
               //   this.props.navigation.navigate('Dashboard');

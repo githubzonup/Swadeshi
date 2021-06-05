@@ -68,10 +68,10 @@ export default class AddVisitScreen extends React.Component {
   //----------------------------------------------------------------------------------------//
 
   //--------------------------------------------------------------------------------------//
-  handleConfirm = (DateDisplay, TimeDisplay) => {
+  handleConfirm = DateDisplay => {
     this.setState({DateDisplay: moment(DateDisplay).format('YYYY-MM-DD ')});
     this.setState({
-      TimeDisplay: moment(TimeDisplay).utcOffset('+05:30').format('hh:mm:ss a'),
+      TimeDisplay: moment(DateDisplay).utcOffset('+05:30').format('hh:mm:ss a'),
     });
   };
   onPressCancel = () => {

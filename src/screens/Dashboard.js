@@ -1,4 +1,5 @@
 import React from 'react';
+import {inject, observer} from 'mobx-react';
 import {
   StyleSheet,
   Text,
@@ -10,7 +11,7 @@ import {
 } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-export default class App extends React.Component {
+class App extends React.Component {
   static navigationOptions = {
     title: 'Dashboard',
     headerShown: false,
@@ -57,6 +58,7 @@ export default class App extends React.Component {
                 // borderWidth: 1,
               }}
               onPress={() => {
+                this.props?.mobxStore?.userStore?.logout();
                 this.props.navigation.navigate('Login');
               }}>
               <MaterialCommunityIcons name="logout" color="#fff" size={38} />
@@ -315,3 +317,5 @@ const styles = StyleSheet.create({
     marginTop: 280,
   },
 });
+
+export default inject('mobxStore')(observer(App));

@@ -19,6 +19,12 @@ class UserStore {
   }
 
   @action
+  async logout() {
+    this.userId = undefined;
+    AsyncStorage.removeItem(AuthenticateParams.USER_ID);
+  }
+
+  @action
   async syncUserId() {
     const userId = await AsyncStorage.getItem(AuthenticateParams.USER_ID);
     if (userId) {

@@ -25,48 +25,41 @@ class LoginScreen extends React.Component {
       UserEmail: '',
       UserPassword: '',
       Id: '',
+      loading: false,
     };
   }
 
-  componentDidMount() {
-    console.log(this.props);
-  }
-
-  login = () => {
+  login = async () => {
     //this.props.navigation.navigate('Dashboard');
+    this.setState({
+      loading: true,
+    });
     const {UserEmail} = this.state;
     const {UserPassword} = this.state;
-    fetch('https://skillpundit.com/api/login.php', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: UserEmail,
-        password: UserPassword,
-      }),
-    })
-      .then(response => response.json())
-      .then(responseJson => {
-        // If server response message same as Data Matched
-        if (responseJson === 'Wrong Details') {
-          alert(responseJson);
-        } else {
-          console.log(responseJson);
-          this.setState({
-            Id: responseJson,
-          });
-          console.log('ID: ', this.state.Id);
-          this.props.navigation.navigate('Dashboard', {id: this.state.Id});
-        }
-      })
-      .catch(error => {
-        console.error(error);
+    const responseJson = await this.props.mobxStore.userStore.login(
+      UserEmail,
+      UserPassword,
+    );
+    if (responseJson === 'Wrong Details') {
+      alert(responseJson);
+      this.setState({loading: false});
+    } else {
+      this.setState({
+        Id: responseJson,
+        loading: false,
       });
+      console.log('ID: ', this.state.Id);
+      this.props.navigation.navigate('Dashboard', {id: this.state.Id});
+    }
   };
 
   render() {
+    if (this.props?.mobxStore?.userStore?.userId) {
+      this.props.navigation.navigate('Dashboard', {
+        id: this.props?.mobxStore?.userStore?.userId,
+      });
+    }
+
     return (
       <View style={styles.container}>
         <View>
@@ -165,7 +158,9 @@ class LoginScreen extends React.Component {
                 borderWidth: 0.8,
               }}
               onPress={this.login}>
-              <Text style={{fontWeight: 'bold', color: 'black'}}>LOGIN</Text>
+              <Text style={{fontWeight: 'bold', color: 'black'}}>
+                {this.state.loading ? 'LOADING' : 'LOGIN'}
+              </Text>
             </TouchableOpacity>
           </ScrollView>
         </Card>
@@ -200,4 +195,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default inject('rootStore')(observer(LoginScreen));
+export default inject('mobxStore')(observer(LoginScreen));

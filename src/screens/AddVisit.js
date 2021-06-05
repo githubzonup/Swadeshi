@@ -209,7 +209,7 @@ export default class AddVisitScreen extends React.Component {
       <ScrollView>
         <View>
           <ImageBackground
-            source={require('../icons/headerbg.png')}
+            source={require('../../icons/headerbg.png')}
             style={{
               height: 202,
               width: '100%',

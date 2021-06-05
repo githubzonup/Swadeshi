@@ -26,31 +26,17 @@ export default class MyVisits extends Component {
     };
   }
 
-  // componentDidMount() {
-
-  //   this.apiCall();
-  // }
-  //   async apiCall() {
-
-  //     let resp = await fetch('https://skillpundit.com/api/saisearch.php')
-  //     let respJson = await resp.json()
-  //      console.log(respJson);
-  //     // alert(respJson)
-  //     // console.warn(respJson)
-  //      this.setState({data:respJson.visit})
-  //   }
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////
   componentDidMount() {
-    console.log('MY VISITS: ', this.state.User_id);
+    console.log('MY APPOINTMENTS: ', this.state.User_id);
     this.SearchRecords();
   }
   async SearchRecords() {
     var User_id = this.state.User_id;
     console.log('Data sending id: ', this.state.User_id);
-    if (User_id.length == 0) {
+    if (User_id.length === 0) {
       alert('Required Field Is Missing');
     } else {
-      var SearchAPIURL = 'https://skillpundit.com/api/myleads.php';
+      var SearchAPIURL = 'https://skillpundit.com/api/appointsearch.php';
 
       var header = {
         Accept: 'application/json',
@@ -72,17 +58,17 @@ export default class MyVisits extends Component {
             data: response.visit,
           });
           console.log(response);
-          console.log('MYVISIT', this.state.data);
+          console.log('MY APPOINTMENTS:', this.state.data);
         });
     }
   }
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////
+
   render() {
     return (
       <ScrollView>
         <View>
           <ImageBackground
-            source={require('../icons/headerbg.png')}
+            source={require('../../icons/headerbg.png')}
             style={{
               height: 202,
               width: '100%',
@@ -96,7 +82,7 @@ export default class MyVisits extends Component {
                 width: 50,
                 //  borderRadius: 7,
                 marginLeft: '87%',
-                marginTop: -10,
+                marginTop: 5,
                 alignItems: 'center',
                 justifyContent: 'center',
                 // backgroundColor: '#fff',
@@ -113,12 +99,12 @@ export default class MyVisits extends Component {
               style={{
                 fontWeight: 'bold',
                 color: '#fff',
-                fontSize: 40,
+                fontSize: 35,
                 // marginTop: "-30%",
                 //   marginLeft: "28%",
-                marginTop: 28,
+                marginTop: 25,
               }}>
-              MY LEADS
+              MY APPOINTMENTS
             </Text>
           </ImageBackground>
         </View>
@@ -127,7 +113,7 @@ export default class MyVisits extends Component {
           renderItem={({item}) => (
             <View
               style={{
-                height: 135,
+                height: 165,
                 width: '90%',
                 marginLeft: '5%',
                 marginTop: 20,
@@ -151,6 +137,13 @@ export default class MyVisits extends Component {
               <Text style={{fontWeight: 'bold', marginTop: '1%'}}>
                 PRODUCTS INTERSTED:
                 <Text style={{color: 'blue'}}> {item.Productsinterested}</Text>
+              </Text>
+              <Text style={{fontWeight: 'bold', marginTop: '1%'}}>
+                APPOINTMENT DATE & TIME:{' '}
+                <Text style={{color: 'blue'}}>
+                  {item.Appointdate}
+                  {item.Appointtime}
+                </Text>
               </Text>
             </View>
           )}

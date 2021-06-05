@@ -19,5 +19,8 @@
     "fontawesome",
     "muiicon",
     "unicon"
-  ]
+  ],
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }

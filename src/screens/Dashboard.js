@@ -40,7 +40,7 @@ export default class App extends React.Component {
       <ScrollView>
         <View>
           <ImageBackground
-            source={require('../icons/headerbg.png')}
+            source={require('../../icons/headerbg.png')}
             style={{height: 202, width: '100%'}}>
             <TouchableOpacity
               style={{
@@ -81,7 +81,7 @@ export default class App extends React.Component {
             this.props.navigation.navigate('StartDay', {id: this.state.Id});
           }}>
           <Image
-            source={require('../icons/3.png')}
+            source={require('../../icons/3.png')}
             style={{height: '80%', width: '90%'}}
           />
           <Text
@@ -110,7 +110,7 @@ export default class App extends React.Component {
             this.props.navigation.navigate('RouteMap', {id: this.state.Id});
           }}>
           <Image
-            source={require('../icons/2.png')}
+            source={require('../../icons/2.png')}
             style={{height: '80%', width: '90%'}}
           />
           <Text
@@ -139,7 +139,7 @@ export default class App extends React.Component {
             this.props.navigation.navigate('MyVisits', {id: this.state.Id});
           }}>
           <Image
-            source={require('../icons/4.png')}
+            source={require('../../icons/4.png')}
             style={{height: '80%', width: '90%'}}
           />
           <Text
@@ -168,7 +168,7 @@ export default class App extends React.Component {
             this.props.navigation.navigate('AddVisit', {id: this.state.Id});
           }}>
           <Image
-            source={require('../icons/6.png')}
+            source={require('../../icons/6.png')}
             style={{height: '80%', width: '90%'}}
           />
           <Text
@@ -189,7 +189,6 @@ export default class App extends React.Component {
             alignItems: 'center',
             justifyContent: 'center',
             backgroundColor: '#fff',
-
             borderColor: 'black',
             borderWidth: 1,
           }}
@@ -197,7 +196,7 @@ export default class App extends React.Component {
             this.props.navigation.navigate('MyLeads', {id: this.state.Id});
           }}>
           <Image
-            source={require('../icons/5.png')}
+            source={require('../../icons/5.png')}
             style={{height: '80%', width: '90%'}}
           />
           <Text
@@ -227,7 +226,7 @@ export default class App extends React.Component {
           // }}
         >
           <Image
-            source={require('../icons/7.png')}
+            source={require('../../icons/7.png')}
             style={{height: '80%', width: '90%'}}
           />
           <Text
@@ -259,7 +258,7 @@ export default class App extends React.Component {
             });
           }}>
           <Image
-            source={require('../icons/1.png')}
+            source={require('../../icons/1.png')}
             style={{height: '80%', width: '90%'}}
           />
           <Text
@@ -291,7 +290,7 @@ export default class App extends React.Component {
           // }}
         >
           <Image
-            source={require('../icons/8.png')}
+            source={require('../../icons/8.png')}
             style={{height: '80%', width: '90%'}}
           />
           <Text

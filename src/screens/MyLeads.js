@@ -27,19 +27,19 @@ export default class MyVisits extends Component {
   }
 
   // componentDidMount() {
-  //  // alert("MY VISITS: ", this.state.User_id)
-  //   console.log("MY VISITS: ", this.state.User_id)
+
   //   this.apiCall();
   // }
   //   async apiCall() {
 
-  //     let resp = await fetch('https://skillpundit.com/api/Searchfinal.php')
+  //     let resp = await fetch('https://skillpundit.com/api/saisearch.php')
   //     let respJson = await resp.json()
   //      console.log(respJson);
+  //     // alert(respJson)
   //     // console.warn(respJson)
   //      this.setState({data:respJson.visit})
   //   }
-  //-----------------------------------------------------------------------------------------------//
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////
   componentDidMount() {
     console.log('MY VISITS: ', this.state.User_id);
     this.SearchRecords();
@@ -47,10 +47,10 @@ export default class MyVisits extends Component {
   async SearchRecords() {
     var User_id = this.state.User_id;
     console.log('Data sending id: ', this.state.User_id);
-    if (User_id.length == 0) {
+    if (User_id.length === 0) {
       alert('Required Field Is Missing');
     } else {
-      var SearchAPIURL = 'https://skillpundit.com/api/myvisit.php';
+      var SearchAPIURL = 'https://skillpundit.com/api/myleads.php';
 
       var header = {
         Accept: 'application/json',
@@ -76,15 +76,13 @@ export default class MyVisits extends Component {
         });
     }
   }
-
-  ///---------------------------------------------------------------------------------------------------///
-
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////
   render() {
     return (
       <ScrollView>
         <View>
           <ImageBackground
-            source={require('../icons/headerbg.png')}
+            source={require('../../icons/headerbg.png')}
             style={{
               height: 202,
               width: '100%',
@@ -111,16 +109,16 @@ export default class MyVisits extends Component {
               }}>
               <MaterialCommunityIcons name="logout" color="#fff" size={38} />
             </TouchableOpacity>
-
             <Text
               style={{
                 fontWeight: 'bold',
                 color: '#fff',
                 fontSize: 40,
                 // marginTop: "-30%",
+                //   marginLeft: "28%",
                 marginTop: 28,
               }}>
-              MY VISITS
+              MY LEADS
             </Text>
           </ImageBackground>
         </View>
@@ -128,7 +126,6 @@ export default class MyVisits extends Component {
           data={this.state.data}
           renderItem={({item}) => (
             <View
-              key={item.ID}
               style={{
                 height: 135,
                 width: '90%',

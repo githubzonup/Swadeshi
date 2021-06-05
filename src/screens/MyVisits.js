@@ -26,8 +26,22 @@ export default class MyVisits extends Component {
     };
   }
 
+  // componentDidMount() {
+  //  // alert("MY VISITS: ", this.state.User_id)
+  //   console.log("MY VISITS: ", this.state.User_id)
+  //   this.apiCall();
+  // }
+  //   async apiCall() {
+
+  //     let resp = await fetch('https://skillpundit.com/api/Searchfinal.php')
+  //     let respJson = await resp.json()
+  //      console.log(respJson);
+  //     // console.warn(respJson)
+  //      this.setState({data:respJson.visit})
+  //   }
+  //-----------------------------------------------------------------------------------------------//
   componentDidMount() {
-    console.log('MY APPOINTMENTS: ', this.state.User_id);
+    console.log('MY VISITS: ', this.state.User_id);
     this.SearchRecords();
   }
   async SearchRecords() {
@@ -36,7 +50,7 @@ export default class MyVisits extends Component {
     if (User_id.length == 0) {
       alert('Required Field Is Missing');
     } else {
-      var SearchAPIURL = 'https://skillpundit.com/api/appointsearch.php';
+      var SearchAPIURL = 'https://skillpundit.com/api/myvisit.php';
 
       var header = {
         Accept: 'application/json',
@@ -58,17 +72,19 @@ export default class MyVisits extends Component {
             data: response.visit,
           });
           console.log(response);
-          console.log('MY APPOINTMENTS:', this.state.data);
+          console.log('MYVISIT', this.state.data);
         });
     }
   }
+
+  ///---------------------------------------------------------------------------------------------------///
 
   render() {
     return (
       <ScrollView>
         <View>
           <ImageBackground
-            source={require('../icons/headerbg.png')}
+            source={require('../../icons/headerbg.png')}
             style={{
               height: 202,
               width: '100%',
@@ -82,7 +98,7 @@ export default class MyVisits extends Component {
                 width: 50,
                 //  borderRadius: 7,
                 marginLeft: '87%',
-                marginTop: 5,
+                marginTop: -10,
                 alignItems: 'center',
                 justifyContent: 'center',
                 // backgroundColor: '#fff',
@@ -95,16 +111,16 @@ export default class MyVisits extends Component {
               }}>
               <MaterialCommunityIcons name="logout" color="#fff" size={38} />
             </TouchableOpacity>
+
             <Text
               style={{
                 fontWeight: 'bold',
                 color: '#fff',
-                fontSize: 35,
+                fontSize: 40,
                 // marginTop: "-30%",
-                //   marginLeft: "28%",
-                marginTop: 25,
+                marginTop: 28,
               }}>
-              MY APPOINTMENTS
+              MY VISITS
             </Text>
           </ImageBackground>
         </View>
@@ -112,8 +128,9 @@ export default class MyVisits extends Component {
           data={this.state.data}
           renderItem={({item}) => (
             <View
+              key={item.ID}
               style={{
-                height: 165,
+                height: 135,
                 width: '90%',
                 marginLeft: '5%',
                 marginTop: 20,
@@ -137,13 +154,6 @@ export default class MyVisits extends Component {
               <Text style={{fontWeight: 'bold', marginTop: '1%'}}>
                 PRODUCTS INTERSTED:
                 <Text style={{color: 'blue'}}> {item.Productsinterested}</Text>
-              </Text>
-              <Text style={{fontWeight: 'bold', marginTop: '1%'}}>
-                APPOINTMENT DATE & TIME:{' '}
-                <Text style={{color: 'blue'}}>
-                  {item.Appointdate}
-                  {item.Appointtime}
-                </Text>
               </Text>
             </View>
           )}

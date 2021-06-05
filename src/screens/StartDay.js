@@ -259,7 +259,7 @@ class StartDayScreen extends Component {
     return (
       <View>
         <ImageBackground
-          source={require('../icons/headerbg.png')}
+          source={require('../../icons/headerbg.png')}
           style={{
             height: 202,
             width: '100%',

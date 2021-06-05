@@ -1,4 +1,5 @@
 import React from 'react';
+import {inject, observer} from 'mobx-react';
 import {Card} from 'native-base';
 import {
   StyleSheet,
@@ -12,11 +13,12 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-export default class LoginScreen extends React.Component {
+class LoginScreen extends React.Component {
   static navigationOptions = {
     title: 'Login',
     headerShown: false,
   };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -24,6 +26,10 @@ export default class LoginScreen extends React.Component {
       UserPassword: '',
       Id: '',
     };
+  }
+
+  componentDidMount() {
+    console.log(this.props);
   }
 
   login = () => {
@@ -83,7 +89,7 @@ export default class LoginScreen extends React.Component {
         </View>
         <View style={{alignItems: 'center', marginTop: 2}}>
           <Image
-            source={require('../icons/llogo.png')}
+            source={require('../../icons/llogo.png')}
             style={{height: 80, width: 80}}
           />
         </View>
@@ -145,25 +151,6 @@ export default class LoginScreen extends React.Component {
                 </Text>
               </TouchableOpacity>
             </View>
-            {/* <TouchableOpacity
-              style={{
-                width: '70%',
-                marginTop: '10%',
-                marginLeft: '14%',
-                color: 'black',
-                marginBottom: 10,
-              }}
-              onPress={() => {
-                this.props.navigation.navigate('Dashboard');
-              }}
-              >
-              <Button
-                title="Login"
-                color="#FF8C00"
-
-              />
-            </TouchableOpacity> */}
-
             <TouchableOpacity
               style={{
                 height: 45,
@@ -203,7 +190,6 @@ const styles = StyleSheet.create({
     // alignSelf: "stretch",
     //padding: 10,
     marginLeft: 50,
-    borderBottomColor: '#000',
     //margin: 5,
     marginRight: 35,
     borderBottomColor: 'grey', // Add this to specify bottom border color
@@ -213,3 +199,5 @@ const styles = StyleSheet.create({
     color: 'black',
   },
 });
+
+export default inject('rootStore')(observer(LoginScreen));

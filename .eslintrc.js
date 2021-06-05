@@ -14,7 +14,7 @@ module.exports = {
     'react-hooks/exhaustive-deps': 'off',
     'array-callback-return': 'error',
     'consistent-return': 'error',
-    'no-else-return': ['error', { allowElseIf: false }],
+    'no-else-return': ['error', {allowElseIf: false}],
     'no-return-assign': ['error', 'always'],
     'no-shadow': 'off',
     camelcase: 'off',

@@ -11,11 +11,11 @@ class UserStore {
   async login(email, password) {
     const userId = await loginWithEmail(email, password);
     if (userId === 'Wrong Details') {
-      alert('Wrong Details');
-    } else {
-      this.userId = userId;
-      AsyncStorage.setItem(AuthenticateParams.USER_ID, userId);
+      return userId;
     }
+    this.userId = userId;
+    AsyncStorage.setItem(AuthenticateParams.USER_ID, userId);
+    return userId;
   }
 
   @action

@@ -44,10 +44,11 @@ export default class MyVisits extends Component {
     console.log('MY VISITS: ', this.state.User_id);
     this.SearchRecords();
   }
+
   async SearchRecords() {
     var User_id = this.state.User_id;
     console.log('Data sending id: ', this.state.User_id);
-    if (User_id.length == 0) {
+    if (User_id.length === 0) {
       alert('Required Field Is Missing');
     } else {
       var SearchAPIURL = 'https://skillpundit.com/api/myvisit.php';

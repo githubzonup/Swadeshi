@@ -108,46 +108,51 @@ export default class MyVisits extends Component {
             </Text>
           </ImageBackground>
         </View>
-        <FlatList
-          data={this.state.data}
-          renderItem={({item}) => (
-            <View
-              style={{
-                height: 165,
-                width: '90%',
-                marginLeft: '5%',
-                marginTop: 20,
-                borderRadius: 10,
-                backgroundColor: '#fff',
-                paddingLeft: '4%',
-                borderWidth: 0.5,
-                borderColor: 'grey',
-              }}>
-              {/* <Text style={{fontWeight: "bold"}}>{item.ID} {item.Customername} {item.Contactnumber} {item.Address} {item.Productsinterested}</Text>  */}
-              <Text style={{fontWeight: 'bold', marginTop: '2%'}}>
-                NAME: <Text style={{color: 'blue'}}>{item.Customername}</Text>
-              </Text>
-              <Text style={{fontWeight: 'bold', marginTop: '1%'}}>
-                CONTACT NUMBER:
-                <Text style={{color: 'blue'}}> {item.Contactnumber}</Text>
-              </Text>
-              <Text style={{fontWeight: 'bold', marginTop: '1%'}}>
-                ADDRESS: <Text style={{color: 'blue'}}>{item.Address}</Text>
-              </Text>
-              <Text style={{fontWeight: 'bold', marginTop: '1%'}}>
-                PRODUCTS INTERSTED:
-                <Text style={{color: 'blue'}}> {item.Productsinterested}</Text>
-              </Text>
-              <Text style={{fontWeight: 'bold', marginTop: '1%'}}>
-                APPOINTMENT DATE & TIME:{' '}
-                <Text style={{color: 'blue'}}>
-                  {item.Appointdate}
-                  {item.Appointtime}
+        {Array.isArray(this.state.data) && this.state.data.length > 0 && (
+          <FlatList
+            data={this.state.data}
+            renderItem={({item}) => (
+              <View
+                style={{
+                  height: 165,
+                  width: '90%',
+                  marginLeft: '5%',
+                  marginTop: 20,
+                  borderRadius: 10,
+                  backgroundColor: '#fff',
+                  paddingLeft: '4%',
+                  borderWidth: 0.5,
+                  borderColor: 'grey',
+                }}>
+                {/* <Text style={{fontWeight: "bold"}}>{item.ID} {item.Customername} {item.Contactnumber} {item.Address} {item.Productsinterested}</Text>  */}
+                <Text style={{fontWeight: 'bold', marginTop: '2%'}}>
+                  NAME: <Text style={{color: 'blue'}}>{item.Customername}</Text>
                 </Text>
-              </Text>
-            </View>
-          )}
-        />
+                <Text style={{fontWeight: 'bold', marginTop: '1%'}}>
+                  CONTACT NUMBER:
+                  <Text style={{color: 'blue'}}> {item.Contactnumber}</Text>
+                </Text>
+                <Text style={{fontWeight: 'bold', marginTop: '1%'}}>
+                  ADDRESS: <Text style={{color: 'blue'}}>{item.Address}</Text>
+                </Text>
+                <Text style={{fontWeight: 'bold', marginTop: '1%'}}>
+                  PRODUCTS INTERSTED:
+                  <Text style={{color: 'blue'}}>
+                    {' '}
+                    {item.Productsinterested}
+                  </Text>
+                </Text>
+                <Text style={{fontWeight: 'bold', marginTop: '1%'}}>
+                  APPOINTMENT DATE & TIME:{' '}
+                  <Text style={{color: 'blue'}}>
+                    {item.Appointdate}
+                    {item.Appointtime}
+                  </Text>
+                </Text>
+              </View>
+            )}
+          />
+        )}
         <TouchableOpacity
           style={{
             height: 50,

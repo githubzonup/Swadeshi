@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import {
-  FlatList,
   Text,
   View,
   ImageBackground,
   ScrollView,
   TouchableOpacity,
+  VirtualizedList,
+  LogBox,
 } from 'react-native';
 import Hyperlink from 'react-native-hyperlink';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -43,6 +44,7 @@ export default class MyVisits extends Component {
   componentDidMount() {
     console.log('MY VISITS: ', this.state.User_id);
     this.SearchRecords();
+    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
   }
 
   async SearchRecords() {
@@ -126,42 +128,49 @@ export default class MyVisits extends Component {
           </ImageBackground>
         </View>
         {Array.isArray(this.state.data) && this.state.data.length > 0 && (
-          <FlatList
+          <VirtualizedList
+            initialNumToRender={4}
             data={this.state.data}
-            renderItem={({item}) => (
-              <View
-                key={item.ID}
-                style={{
-                  height: 135,
-                  width: '90%',
-                  marginLeft: '5%',
-                  marginTop: 20,
-                  borderRadius: 10,
-                  backgroundColor: '#fff',
-                  paddingLeft: '4%',
-                  borderWidth: 0.5,
-                  borderColor: 'grey',
-                }}>
-                {/* <Text style={{fontWeight: "bold"}}>{item.ID} {item.Customername} {item.Contactnumber} {item.Address} {item.Productsinterested}</Text>  */}
-                <Text style={{fontWeight: 'bold', marginTop: '2%'}}>
-                  NAME: <Text style={{color: 'blue'}}>{item.Customername}</Text>
-                </Text>
-                <Text style={{fontWeight: 'bold', marginTop: '1%'}}>
-                  CONTACT NUMBER:
-                  <Text style={{color: 'blue'}}> {item.Contactnumber}</Text>
-                </Text>
-                <Text style={{fontWeight: 'bold', marginTop: '1%'}}>
-                  ADDRESS: <Text style={{color: 'blue'}}>{item.Address}</Text>
-                </Text>
-                <Text style={{fontWeight: 'bold', marginTop: '1%'}}>
-                  PRODUCTS INTERSTED:
-                  <Text style={{color: 'blue'}}>
-                    {' '}
-                    {item.Productsinterested}
+            keyExtractor={item => item?.ID}
+            getItemCount={item => item?.length}
+            getItem={(data, index) => data[index] || {}}
+            renderItem={({item}) => {
+              return (
+                <View
+                  key={item.ID}
+                  style={{
+                    height: 135,
+                    width: '90%',
+                    marginLeft: '5%',
+                    marginTop: 20,
+                    borderRadius: 10,
+                    backgroundColor: '#fff',
+                    paddingLeft: '4%',
+                    borderWidth: 0.5,
+                    borderColor: 'grey',
+                  }}>
+                  {/* <Text style={{fontWeight: "bold"}}>{item.ID} {item.Customername} {item.Contactnumber} {item.Address} {item.Productsinterested}</Text>  */}
+                  <Text style={{fontWeight: 'bold', marginTop: '2%'}}>
+                    NAME:{' '}
+                    <Text style={{color: 'blue'}}>{item.Customername}</Text>
                   </Text>
-                </Text>
-              </View>
-            )}
+                  <Text style={{fontWeight: 'bold', marginTop: '1%'}}>
+                    CONTACT NUMBER:
+                    <Text style={{color: 'blue'}}> {item.Contactnumber}</Text>
+                  </Text>
+                  <Text style={{fontWeight: 'bold', marginTop: '1%'}}>
+                    ADDRESS: <Text style={{color: 'blue'}}>{item.Address}</Text>
+                  </Text>
+                  <Text style={{fontWeight: 'bold', marginTop: '1%'}}>
+                    PRODUCTS INTERSTED:
+                    <Text style={{color: 'blue'}}>
+                      {' '}
+                      {item.Productsinterested}
+                    </Text>
+                  </Text>
+                </View>
+              );
+            }}
           />
         )}
         <TouchableOpacity

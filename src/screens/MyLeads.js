@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import {
-  FlatList,
   Text,
   View,
   ImageBackground,
   ScrollView,
   TouchableOpacity,
+  VirtualizedList,
+  LogBox,
 } from 'react-native';
 import Hyperlink from 'react-native-hyperlink';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -43,6 +44,7 @@ export default class MyVisits extends Component {
   componentDidMount() {
     console.log('MY VISITS: ', this.state.User_id);
     this.SearchRecords();
+    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
   }
   async SearchRecords() {
     var User_id = this.state.User_id;
@@ -122,8 +124,12 @@ export default class MyVisits extends Component {
           </ImageBackground>
         </View>
         {Array.isArray(this.state.data) && this.state.data.length > 0 && (
-          <FlatList
+          <VirtualizedList
+            initialNumToRender={4}
             data={this.state.data}
+            keyExtractor={item => item?.ID}
+            getItemCount={item => item?.length}
+            getItem={(data, index) => data[index] || {}}
             renderItem={({item}) => (
               <View
                 style={{

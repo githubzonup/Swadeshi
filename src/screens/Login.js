@@ -108,6 +108,7 @@ class LoginScreen extends React.Component {
                 <Icon name="user" size={25} color="grey" />
               </Text>
               <TextInput
+                value={this.state.UserEmail}
                 onChangeText={UserEmail => this.setState({UserEmail})}
                 style={styles.textInput}
                 placeholder="88455545332"
@@ -125,6 +126,7 @@ class LoginScreen extends React.Component {
                 <Icon name="unlock-alt" size={25} color="grey" />
               </Text>
               <TextInput
+                value={this.state.UserPassword}
                 onChangeText={UserPassword => this.setState({UserPassword})}
                 style={styles.textInput}
                 secureTextEntry={true}

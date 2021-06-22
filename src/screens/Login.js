@@ -47,6 +47,8 @@ class LoginScreen extends React.Component {
       this.setState({
         Id: responseJson,
         loading: false,
+        UserEmail: '',
+        UserPassword: '',
       });
       console.log('ID: ', this.state.Id);
       this.props.navigation.navigate('Dashboard', {id: this.state.Id});
@@ -108,7 +110,6 @@ class LoginScreen extends React.Component {
               <TextInput
                 onChangeText={UserEmail => this.setState({UserEmail})}
                 style={styles.textInput}
-                secureTextEntry={true}
                 placeholder="88455545332"
                 placeholderTextColor="black"
                 // keyboardType="number-pad"

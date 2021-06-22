@@ -108,6 +108,7 @@ class LoginScreen extends React.Component {
               <TextInput
                 onChangeText={UserEmail => this.setState({UserEmail})}
                 style={styles.textInput}
+                secureTextEntry={true}
                 placeholder="88455545332"
                 placeholderTextColor="black"
                 // keyboardType="number-pad"

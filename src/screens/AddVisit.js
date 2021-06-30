@@ -1,5 +1,6 @@
 import React from 'react';
 import Geolocation from '@react-native-community/geolocation';
+import axios from 'axios';
 import moment from 'moment';
 import {Picker, Item} from 'native-base';
 import {
@@ -15,6 +16,7 @@ import {
 import Geocoder from 'react-native-geocoding';
 import {DateTimePickerModal} from 'react-native-modal-datetime-picker';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {BASE_API_URL} from '../constants';
 
 export default class AddVisitScreen extends React.Component {
   static navigationOptions = {
@@ -35,6 +37,7 @@ export default class AddVisitScreen extends React.Component {
       Date: '',
       Time: '',
       selected1: 'PRODUCTS INTERSTED:',
+      reportSelected: 0,
       Productsinterested: '',
       selected2: 'ADD TO LEAD:',
       Addtolead: '',
@@ -50,8 +53,16 @@ export default class AddVisitScreen extends React.Component {
       User_id: this.props.navigation.state.params.id,
       initialPosition: 'unknown',
       lastPosition: 'unknown',
+      reportOptions: [],
     };
   }
+
+  fetchReportOptions = async () => {
+    const response = await axios.get(`${BASE_API_URL}/api/dropdown.php`);
+    if (Array.isArray(response?.data?.reports)) {
+      this.setState({reportOptions: response?.data?.reports});
+    }
+  };
 
   selected1(value) {
     this.setState({
@@ -130,6 +141,7 @@ export default class AddVisitScreen extends React.Component {
         Appointtime: Appointtime,
         Latitude: Latitude,
         Longitude: Longitude,
+        ReporterId: this.state.reportSelected,
       };
       fetch(InsertAPIURL, {
         method: 'POST',
@@ -202,6 +214,8 @@ export default class AddVisitScreen extends React.Component {
         })
         .catch(error => console.warn(error));
     });
+
+    this.fetchReportOptions();
   }
 
   render() {
@@ -369,7 +383,6 @@ export default class AddVisitScreen extends React.Component {
               <Text>
                 DATE & TIME: {this.state.CurrentDate} {this.state.CurrentTime}
               </Text>
-
               {/* <Text>{this.state.DateDisplay}</Text> */}
             </TouchableOpacity>
             <View
@@ -403,7 +416,45 @@ export default class AddVisitScreen extends React.Component {
                 <Item label="IOS" value="IOS" />
               </Picker>
             </View>
-
+            <View
+              style={{
+                height: 50,
+                width: '80%',
+                borderWidth: 2,
+                borderRadius: 50,
+                borderColor: '#00008B',
+                marginTop: '4%',
+                alignContent: 'center',
+                alignItems: 'center',
+                marginLeft: '11%',
+                paddingLeft: -20,
+                justifyContent: 'center',
+                fontSize: 5,
+              }}>
+              <Picker
+                selectedValue={this.state.reportSelected}
+                onValueChange={event =>
+                  this.setState({
+                    reportSelected: event,
+                  })
+                }
+                style={{
+                  height: 20,
+                  width: '80%',
+                  marginLeft: '-11%',
+                  fontSize: 5,
+                }}>
+                <Item label="REPORTS:" value="0" />
+                {Array.isArray(this?.state?.reportOptions) &&
+                  this?.state?.reportOptions?.map((reportOption, index) => (
+                    <Item
+                      key={index}
+                      label={reportOption?.name}
+                      value={reportOption?.id}
+                    />
+                  ))}
+              </Picker>
+            </View>
             <View
               style={{
                 height: 50,

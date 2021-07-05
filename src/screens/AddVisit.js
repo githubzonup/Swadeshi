@@ -4,7 +4,6 @@ import axios from 'axios';
 import moment from 'moment';
 import {Picker, Item} from 'native-base';
 import {
-  StyleSheet,
   Text,
   View,
   TextInput,
@@ -16,6 +15,7 @@ import {
 import Geocoder from 'react-native-geocoding';
 import {DateTimePickerModal} from 'react-native-modal-datetime-picker';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import MultipleSelect from '../components/MultipleSelect';
 import {BASE_API_URL} from '../constants';
 
 export default class AddVisitScreen extends React.Component {
@@ -37,7 +37,7 @@ export default class AddVisitScreen extends React.Component {
       Date: '',
       Time: '',
       selected1: 'PRODUCTS INTERSTED:',
-      reportSelected: 0,
+      reportSelected: [],
       Productsinterested: '',
       selected2: 'ADD TO LEAD:',
       Addtolead: '',
@@ -54,6 +54,7 @@ export default class AddVisitScreen extends React.Component {
       initialPosition: 'unknown',
       lastPosition: 'unknown',
       reportOptions: [],
+      openReportSelect: false,
     };
   }
 
@@ -416,7 +417,12 @@ export default class AddVisitScreen extends React.Component {
                 <Item label="IOS" value="IOS" />
               </Picker>
             </View>
-            <View
+            <TouchableOpacity
+              onPress={() =>
+                this.setState({
+                  openReportSelect: true,
+                })
+              }
               style={{
                 height: 50,
                 width: '80%',
@@ -425,36 +431,32 @@ export default class AddVisitScreen extends React.Component {
                 borderColor: '#00008B',
                 marginTop: '4%',
                 alignContent: 'center',
-                alignItems: 'center',
+                alignItems: 'flex-start',
                 marginLeft: '11%',
                 paddingLeft: -20,
                 justifyContent: 'center',
                 fontSize: 5,
               }}>
-              <Picker
-                selectedValue={this.state.reportSelected}
-                onValueChange={event =>
+              <MultipleSelect
+                options={this?.state?.reportOptions?.map(
+                  (reportOption, index) => ({
+                    key: index,
+                    label: reportOption?.name,
+                    value: reportOption?.id,
+                  }),
+                )}
+                visible={this.state.openReportSelect}
+                onChange={value => {
                   this.setState({
-                    reportSelected: event,
-                  })
-                }
-                style={{
-                  height: 20,
-                  width: '80%',
-                  marginLeft: '-11%',
-                  fontSize: 5,
-                }}>
-                <Item label="REPORTS:" value="0" />
-                {Array.isArray(this?.state?.reportOptions) &&
-                  this?.state?.reportOptions?.map((reportOption, index) => (
-                    <Item
-                      key={index}
-                      label={reportOption?.name}
-                      value={reportOption?.id}
-                    />
-                  ))}
-              </Picker>
-            </View>
+                    reportSelected: value,
+                    openReportSelect: false,
+                  });
+                }}
+              />
+              <Text style={{textAlign: 'left', marginLeft: 25}}>
+                REPORTS: {this.state.reportSelected?.join(',')}
+              </Text>
+            </TouchableOpacity>
             <View
               style={{
                 height: 50,
@@ -557,12 +559,3 @@ export default class AddVisitScreen extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

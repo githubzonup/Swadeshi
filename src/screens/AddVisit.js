@@ -16,7 +16,7 @@ import Geocoder from 'react-native-geocoding';
 import {DateTimePickerModal} from 'react-native-modal-datetime-picker';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MultipleSelect from '../components/MultipleSelect';
-import {BASE_API_URL} from '../constants';
+import {BASE_API_URL, productOptions} from '../constants';
 
 export default class AddVisitScreen extends React.Component {
   static navigationOptions = {
@@ -36,9 +36,9 @@ export default class AddVisitScreen extends React.Component {
       TimeDisplay: '',
       Date: '',
       Time: '',
-      selected1: 'PRODUCTS INTERSTED:',
+      selected1: [],
       reportSelected: [],
-      Productsinterested: '',
+      Productsinterested: [],
       selected2: 'ADD TO LEAD:',
       Addtolead: '',
       Appointdate: '',
@@ -55,6 +55,7 @@ export default class AddVisitScreen extends React.Component {
       lastPosition: 'unknown',
       reportOptions: [],
       openReportSelect: false,
+      openProductSelect: false,
     };
   }
 
@@ -65,12 +66,6 @@ export default class AddVisitScreen extends React.Component {
     }
   };
 
-  selected1(value) {
-    this.setState({
-      selected1: value,
-      Productsinterested: value,
-    });
-  }
   selected2(value) {
     this.setState({
       selected2: value,
@@ -386,7 +381,12 @@ export default class AddVisitScreen extends React.Component {
               </Text>
               {/* <Text>{this.state.DateDisplay}</Text> */}
             </TouchableOpacity>
-            <View
+            <TouchableOpacity
+              onPress={() =>
+                this.setState({
+                  openProductSelect: true,
+                })
+              }
               style={{
                 height: 50,
                 width: '80%',
@@ -395,28 +395,32 @@ export default class AddVisitScreen extends React.Component {
                 borderColor: '#00008B',
                 marginTop: '4%',
                 alignContent: 'center',
-                alignItems: 'center',
+                alignItems: 'flex-start',
                 marginLeft: '11%',
                 paddingLeft: -20,
                 justifyContent: 'center',
                 fontSize: 5,
               }}>
-              <Picker
-                selectedValue={this.state.selected1}
-                onValueChange={this.selected1.bind(this)}
-                style={{
-                  height: 20,
-                  width: '80%',
-                  marginLeft: '-11%',
-                  fontSize: 5,
-                }}>
-                <Item label="PRODUCTS INTERSTED:" value="0" />
-                <Item label="React Native" value="React-Native" />
-                <Item label="Flutter" value="Flutter" />
-                <Item label="Android" value="Android" />
-                <Item label="IOS" value="IOS" />
-              </Picker>
-            </View>
+              <MultipleSelect
+                options={productOptions?.map((option, index) => ({
+                  key: index,
+                  label: option?.label,
+                  value: option?.value,
+                }))}
+                visible={this.state.openProductSelect}
+                onChange={value => {
+                  this.setState({
+                    selected1: value,
+                    Productsinterested: value,
+                    openProductSelect: false,
+                  });
+                }}
+              />
+              <Text style={{textAlign: 'left', marginLeft: 25}}>
+                PRODUCTS INTERSTED: SELECT {this.state.selected1?.length}{' '}
+                PRODUCTS
+              </Text>
+            </TouchableOpacity>
             <TouchableOpacity
               onPress={() =>
                 this.setState({
@@ -454,7 +458,7 @@ export default class AddVisitScreen extends React.Component {
                 }}
               />
               <Text style={{textAlign: 'left', marginLeft: 25}}>
-                REPORTS: {this.state.reportSelected?.join(',')}
+                REPORTS: SELECT {this.state.reportSelected?.length} REPORTS
               </Text>
             </TouchableOpacity>
             <View
